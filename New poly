@@ -1,0 +1,79 @@
+import java.util.Scanner;
+
+class MenuItem {
+    private String name;
+    private double cost;
+
+    public MenuItem(String name, double cost) {
+        this.name = name;
+        this.cost = cost;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+}
+
+class FlavoredCupcake extends MenuItem {
+    public FlavoredCupcake(String name, double cost) {
+        super(name, cost);
+    }
+}
+
+class GlassOfDrink extends MenuItem {
+    public GlassOfDrink(String name, double cost) {
+        super(name, cost);
+    }
+}
+
+class Order {
+    private MenuItem item;
+    private int quantity;
+
+    public Order(MenuItem item, int quantity) {
+        this.item = item;
+        this.quantity = quantity;
+    }
+
+    public double getSubtotal() {
+        return item.getCost() * quantity;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        FlavoredCupcake chocolateCupcake = new FlavoredCupcake("Chocolate", 25.0);
+        FlavoredCupcake raisinsCupcake = new FlavoredCupcake("Raisins", 50.0);
+        FlavoredCupcake pineappleCupcake = new FlavoredCupcake("Pineapple", 40.0);
+        FlavoredCupcake appleCupcake = new FlavoredCupcake("Apple", 30.0);
+        FlavoredCupcake mangoCupcake = new FlavoredCupcake("Mango", 35.0);
+        FlavoredCupcake bananaCupcake = new FlavoredCupcake("Banana", 45.0);
+
+        GlassOfDrink softDrinks = new GlassOfDrink("Softdrinks", 25.0);
+        GlassOfDrink icedTea = new GlassOfDrink("Iced tea", 50.0);
+        GlassOfDrink coffee = new GlassOfDrink("Coffee", 40.0);
+        GlassOfDrink appleJuice = new GlassOfDrink("Apple juice", 30.0);
+        GlassOfDrink mangoJuice = new GlassOfDrink("Mango juice", 35.0);
+        GlassOfDrink pineappleJuice = new GlassOfDrink("Pineapple juice", 45.0);
+
+        double foodTotal = 0.0;
+        double drinkTotal = 0.0;
+
+        while (true) {
+            System.out.println("\nFLAVORED CUP CAKES");
+            System.out.println("FLAVOR\t\t\tCOST");
+            System.out.printf("[A]\t%-15s\t%.2f\n", chocolateCupcake.getName(), chocolateCupcake.getCost());
+            System.out.printf("[B]\t%-15s\t%.2f\n", raisinsCupcake.getName(), raisinsCupcake.getCost());
+            System.out.printf("[C]\t%-15s\t%.2f\n", pineappleCupcake.getName(), pineappleCupcake.getCost());
+            System.out.printf("[D]\t%-15s\t%.2f\n", appleCupcake.getName(), appleCupcake.getCost());
+            System.out.printf("[E]\t%-15s\t%.2f\n", mangoCupcake.getName(), mangoCupcake.getCost());
+            System.out.printf("[F]\t%-15s\t%.2f\n", bananaCupcake.getName(), bananaCupcake.getCost());
+
+            System.out.print("\nCHOOSE FLAVOR: ");
+            String flavor =
