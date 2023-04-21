@@ -1,0 +1,196 @@
+// base class for all items
+abstract class Item {
+    protected String name;
+    protected double cost;
+
+    public Item(String name, double cost) {
+        this.name = name;
+        this.cost = cost;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    // method to calculate subtotal for a given quantity
+    public double calculateSubtotal(int quantity) {
+        return cost * quantity;
+    }
+
+    // abstract method to be implemented by child classes
+    public abstract void display();
+}
+
+// cupcake subclass
+class Cupcake extends Item {
+    public Cupcake(String name, double cost) {
+        super(name, cost);
+    }
+
+    @Override
+    public void display() {
+        System.out.println("[" + name + "]\t" + cost);
+    }
+}
+
+// drink subclass
+class Drink extends Item {
+    public Drink(String name, double cost) {
+        super(name, cost);
+    }
+
+    @Override
+    public void display() {
+        System.out.println("[" + name + "]\t" + cost);
+    }
+}
+
+// order class to handle multiple items
+class Order {
+    private Item[] items;
+
+    public Order(Item[] items) {
+        this.items = items;
+    }
+
+    public double getTotalCost() {
+        double totalCost = 0;
+        for (Item item : items) {
+            totalCost += item.getCost();
+        }
+        return totalCost;
+    }
+
+    public void displaySummary() {
+        System.out.println("SUMMARY");
+        System.out.println("FOOD\t\t" + items[0].getCost());
+        System.out.println("DRINKS\t\t" + items[1].getCost());
+        System.out.println("------------------------");
+        System.out.println("AMOUNT DUE:\t" + getTotalCost());
+    }
+}
+
+// main class to handle user input
+public class Main {
+    public static void main(String[] args) {
+        // create cupcake objects
+        Cupcake chocolate = new Cupcake("CHOCOLATE", 25.0);
+        Cupcake raisins = new Cupcake("RAISINS", 50.0);
+        Cupcake pineapple = new Cupcake("PINEAPPLE", 40.0);
+        Cupcake apple = new Cupcake("APPLE", 30.0);
+        Cupcake mango = new Cupcake("MANGO", 35.0);
+        Cupcake banana = new Cupcake("BANANA", 45.0);
+
+        // create drink objects
+        Drink softDrinks = new Drink("SOFTDRINKS", 25.0);
+        Drink icedTea = new Drink("ICED TEA", 50.0);
+        Drink coffee = new Drink("COFFEE", 40.0);
+        Drink appleJuice = new Drink("APPLE JUICE", 30.0);
+        Drink mangoJuice = new Drink("MANGO JUICE", 35.0);
+        Drink pineappleJuice = new Drink("PINEAPPLE JUICE", 45.0);
+
+        // display menu options
+        System.out.println("FLAVORED CUP CAKES");
+        chocolate.display();
+        raisins.display();
+        pineapple.display();
+        apple.display();
+        mango.display();
+        banana.display();
+        System.out.println();
+
+        System.out.println("GLASS OF DRINKS");
+        softDrinks.display();
+        icedTea.display();
+        coffee.display();
+        appleJuice.display();
+        mangoJuice.display();
+        pineappleJuice.display();
+        System.out.println();
+
+        // create order arrays for food
+    Item[] foodOrder = new Item[2];
+    int foodCount = 0;
+    do {
+        // prompt user for input
+        System.out.print("CHOOSE FLAVOR: ");
+        String flavor = System.console().readLine().toUpperCase();
+        System.out.print("QUANTITY: ");
+        int quantity = Integer.parseInt(System.console().readLine());
+
+        // add item to order
+        switch (flavor) {
+            case "A":
+                foodOrder[foodCount++] = new Cupcake("CHOCOLATE", 25.0);
+                break;
+            case "B":
+                foodOrder[foodCount++] = new Cupcake("RAISINS", 50.0);
+                break;
+            case "C":
+                foodOrder[foodCount++] = new Cupcake("PINEAPPLE", 40.0);
+                break;
+            case "D":
+                foodOrder[foodCount++] = new Cupcake("APPLE", 30.0);
+                break;
+            case "E":
+                foodOrder[foodCount++] = new Cupcake("MANGO", 35.0);
+                break;
+            case "F":
+                foodOrder[foodCount++] = new Cupcake("BANANA", 45.0);
+                break;
+            default:
+                System.out.println("Invalid flavor selection.");
+                break;
+        }
+
+        // prompt user for another order
+        System.out.print("ANOTHER [Y/N]: ");
+    } while (System.console().readLine().equalsIgnoreCase("Y"));
+
+    // create order arrays for drinks
+    Item[] drinkOrder = new Item[2];
+    int drinkCount = 0;
+    do {
+        // prompt user for input
+        System.out.print("CHOOSE FLAVOR: ");
+        String flavor = System.console().readLine().toUpperCase();
+        System.out.print("QUANTITY: ");
+        int quantity = Integer.parseInt(System.console().readLine());
+
+        // add item to order
+        switch (flavor) {
+            case "1":
+                drinkOrder[drinkCount++] = new Drink("SOFTDRINKS", 25.0);
+                break;
+            case "2":
+                drinkOrder[drinkCount++] = new Drink("ICED TEA", 50.0);
+                break;
+            case "3":
+                drinkOrder[drinkCount++] = new Drink("COFFEE", 40.0);
+                break;
+            case "4":
+                drinkOrder[drinkCount++] = new Drink("APPLE JUICE", 30.0);
+                break;
+            case "5":
+                drinkOrder[drinkCount++] = new Drink("MANGO JUICE", 35.0);
+                break;
+            case "6":
+                drinkOrder[drinkCount++] = new Drink("PINEAPPLE JUICE", 45.0);
+                break;
+            default:
+                System.out.println("Invalid flavor selection.");
+                break;
+        }
+
+        // prompt user for another order
+        System.out.print("ANOTHER [Y/N]: ");
+    } while (System.console().readLine().equalsIgnoreCase("Y"));
+
+    // create order object and display summary
+    Order order = new Order(new Item[] {foodOrder[0], drinkOrder[0]});
+    order.displaySummary();
+}
